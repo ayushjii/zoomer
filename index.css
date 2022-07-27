@@ -1,0 +1,27 @@
+body{
+    /* background-color: aqua; */
+    background: linear-gradient(#6e3f98, #c89e95);
+    text-align: center;
+}
+h1{
+    color:#6e3f98;
+    font-size:70px;
+    
+}
+#can-con{
+    margin-left:22%;
+}
+.container{
+    background-color: #fff;
+    margin: 70px 300px; 
+    border-radius: 100px;
+}
+h3{
+    color:  #c89e95;
+    font-size: 50px;
+}
+input{
+    font-size: x-large;
+    color: blue;
+    text-align: center;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        ZOOOMER
+    </title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>ZOOOMER</h1>
+        <form id="file" >
+            <h3>Add Your Image Here</h3>
+            <input type="file" id="uploadedImg" />
+        </form>
+        <br />
+        <p id="can-con">
+            <canvas id="canvas" width="1000" height="800" style="border: 2px solid black"></canvas>
+        </p>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/kangax/fabric.js/master/dist/fabric.min.js"></script>
+    <script>
+        var canvas = new fabric.Canvas('canvas');
+        document.getElementById('file').addEventListener("change", function (e) {
+            var file = e.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (f) {
+                var data = f.target.result;
+                fabric.Image.fromURL(data, function (img) {
+                    var oImg = img.set({
+                        left: 20, 
+                        right: 20,
+                        width: 1000,
+                        height: 1000
+                    }).scale(1);
+                    canvas.add(oImg).renderAll();
+                    var a = canvas.setActiveObject(oImg);
+                    var dataURL = canvas.toDataURL({ format: 'png', quality: 0.1 });
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+        canvas.on('mouse:wheel', function (opt) {
+            var delta = opt.e.deltaY;
+            var zoom = canvas.getZoom();
+            zoom *= 0.999 ** delta;
+            if (zoom > 20) zoom = 20;
+            if (zoom < 1) zoom = 1;
+            canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+            opt.e.preventDefault();
+            opt.e.stopPropagation();
+        })
+    </script>
+</body>
+
+</html>
